@@ -5,7 +5,7 @@ git submodule init
 git submodule update --recursive --remote
 
 echo '👍 UPDATED SUBMODULES—BUILDING THE SITE'
-HUGO_ENV=production hugo -v
+HUGO_ENV=production hugo -v --minify
 
 echo '👍 THE SITE IS BUILT—PUSHING IT BACK TO GITHUB-PAGES'
 cd public
