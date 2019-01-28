@@ -9,7 +9,7 @@ HUGO_ENV=production hugo -v --minify
 
 echo '👍 THE SITE IS BUILT—PUSHING IT BACK TO GITHUB-PAGES'
 cd public
-remote_repo="https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+remote_repo="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
 remote_branch=${BRANCH:-gh-pages}
 git init
 git remote add origin "${remote_repo}"
