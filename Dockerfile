@@ -12,7 +12,11 @@ LABEL "maintainer"="Joshua Rubin <joshua@rubixconsulting.com>"
 LABEL "Name"="Hugo for GitHub Pages"
 LABEL "Version"="0.0.1"
 
-ENV HUGO_VERSION=0.53
+ENV LC_ALL C.UTF-8
+ENV LANG en_US.UTF-8
+ENV LANGUAGE en_US.UTF-8
+
+ENV HUGO_VERSION 0.53
 
 RUN wget -O /tmp/hugo.tar.gz https://github.com/gohugoio/hugo/releases/download/v${HUGO_VERSION}/hugo_extended_${HUGO_VERSION}_Linux-64bit.tar.gz &&\
     tar -zxf /tmp/hugo.tar.gz -C /tmp &&\
