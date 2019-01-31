@@ -7,15 +7,20 @@ Inspired by:
 - [BryanSchuetz/jekyll-deploy-gh-pages](https://github.com/BryanSchuetz/jekyll-deploy-gh-pages)
 - [khanhicetea/gh-actions-hugo-deploy-gh-pages](https://github.com/khanhicetea/gh-actions-hugo-deploy-gh-pages)
 
+## Create Deploy Key
+
+1. Generate deploy key `ssh-keygen -t ed25519 -f hugo -q -N ""`
+1. Then go to "Settings > Deploy Keys" in your repository
+1. Copy the hugo public key and check “Allow write access”
+1. Copy the hugo private key to the `GIT_DEPLOY_KEY` secret in "Settings > Secrets"
+
 ## Environment Variables
 
 - `BRANCH` - choose the branch to deploy to, optional, defaults to `gh-pages`
-- `PAGES_PUSH_USERNAME` - the username used when pushing to `BRANCH`, *required*
 
 ## Secrets
 
-- `GITHUB_TOKEN` - *required* for pushing files to branch
-- `PAGES_PUSH_ACCESS_TOKEN` - personal access token for `PAGES_PUSH_USERNAME` with permission to push to `BRANCH`, *required*
+- `GIT_DEPLOY_KEY` - *required* your deploy key which has **write access**
 
 ## Example
 
@@ -28,12 +33,10 @@ workflow "Deploy to GitHub Pages" {
 action "hugo-deploy-gh-pages" {
   uses = "joshuarubin/hugo-deploy-gh-pages@master"
   secrets = [
-    "GITHUB_TOKEN",
-    "PAGES_PUSH_ACCESS_TOKEN",
+    "GIT_DEPLOY_KEY",
   ]
   env = {
     BRANCH = "gh-pages"
-    PAGES_PUSH_USERNAME = "joshuarubin"
   }
 }
 ```

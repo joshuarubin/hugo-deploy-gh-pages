@@ -1,10 +1,16 @@
 #!/bin/sh -eu
 
-remote_repo="https://${PAGES_PUSH_USERNAME}:${PAGES_PUSH_ACCESS_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+remote_repo="git@github.com:${GITHUB_REPOSITORY}.git"
 remote_branch=${BRANCH:-gh-pages}
 export HUGO_ENV=production
 
-echo '👍 ENTRYPOINT HAS STARTED—UPDATING SUBMODULES'
+echo '👍 ENTRYPOINT HAS STARTED—PREPARING SSH'
+mkdir /root/.ssh
+echo 'github.com ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ==' > /root/.ssh/known_hosts
+echo "${GIT_DEPLOY_KEY}" > /root/.ssh/id_rsa
+chmod 400 /root/.ssh/id_rsa
+
+echo '👍 PREPARED SSH—UPDATING SUBMODULES'
 git submodule init
 git submodule update --recursive --remote
 
